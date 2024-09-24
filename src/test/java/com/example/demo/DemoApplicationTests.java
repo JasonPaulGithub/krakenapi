@@ -1,5 +1,6 @@
 package com.example.demo;
 
+import com.example.demo.services.RequestService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -22,8 +23,12 @@ class WebMockTest {
     @MockBean
     private RequestService service;
 
+    // Test the outages service (GET)
+    // Test the site-info/{siteId} service (GET)
+    // Test the site-outages/{siteId} service (POST)
+
     @Test
-    void greetingShouldReturnMessageFromService() throws Exception {
+    void testTheRequestService() throws Exception {
 
         String input = "Hello";
 
