@@ -25,11 +25,15 @@ class WebMockTest {
     @Test
     void greetingShouldReturnMessageFromService() throws Exception {
 
-        when(service.greet()).thenReturn("Hello, World");
+        String input = "Hello";
 
-        this.mockMvc.perform(post("/request"))
+        when(service.greet(input)).thenReturn(input);
+
+        this.mockMvc.perform(post("/request/Hello"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Hello, World")));
+                .andExpect(content().string(containsString(input)));
     }
+
+    //TODO: error handling and exceptions
 }
