@@ -1,5 +1,5 @@
 Step 1. 
-Run the application.
+Run the application from main.
 
 Step 2.
 Send a POST request to the chosen site.
