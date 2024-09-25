@@ -5,9 +5,6 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Outage {
-    String id;
-    String begin;
-    String end;
+public class OutageResponse extends Outage {
+    String name;
 }
-
