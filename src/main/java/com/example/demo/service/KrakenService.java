@@ -13,6 +13,8 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
+import static org.springframework.http.MediaType.APPLICATION_JSON;
+
 @Service
 public class KrakenService {
 
@@ -31,16 +33,14 @@ public class KrakenService {
         return (SiteInfo) checkSuccess(makeGetRequest("site-info/" + request), type);
     }
 
-//    public ResponseEntity postResult() {
-//        return new ResponseEntity(HttpStatus.OK);
-//    }
-
-    private ResponseEntity<String> makePostRequest(String url) {
+    public ResponseEntity<String> postSiteOutages(String json, String requestedSite) {
         return RestClient
                 .create()
                 .post()
-                .uri(BASE_URL + url)
+                .uri("https://api.krakenflex.systems/interview-tests-mock-api/v1/site-outages/" + requestedSite)
                 .header("x-api-key", API_KEY)
+                .contentType(APPLICATION_JSON)
+                .body(json)
                 .retrieve()
                 .toEntity(String.class);
     }
@@ -55,17 +55,15 @@ public class KrakenService {
                 .toEntity(String.class);
     }
 
-    private Object checkSuccess(ResponseEntity<String> response, TypeReference type) {
+    private Object checkSuccess(ResponseEntity<String> response, TypeReference<?> type) {
         if (response.getStatusCode().is2xxSuccessful()) {
             return parseResponse(response.getBody(), type);
-        } else if (response.getStatusCode().is5xxServerError()) {
-            throw new ResponseStatusException(response.getStatusCode(), "Error. Consider retrying request.");
         } else {
             throw new ResponseStatusException(response.getStatusCode(), "Error. Request Failed.");
         }
     }
 
-    private Object parseResponse(String response, TypeReference type) {
+    private Object parseResponse(String response, TypeReference<?> type) {
         ObjectMapper objectMapper = new ObjectMapper();
         try {
             return objectMapper.readValue(response, type);

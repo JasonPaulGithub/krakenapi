@@ -23,7 +23,7 @@ public class RequestService {
     private KrakenService krakenService;
 
     public ResponseEntity<?> filterOutages(String requestedSite) {
-        return ReturnResponse(filteredOutages(requestedSite));
+        return ReturnResponse(filteredOutages(requestedSite), requestedSite);
     }
 
     private List<Outage> filteredOutages(String requestedSite) {
@@ -41,11 +41,11 @@ public class RequestService {
         return filteredOutages;
     }
 
-    private ResponseEntity<?> ReturnResponse(List<Outage> filteredOutageList) {
+    private ResponseEntity<?> ReturnResponse(List<Outage> filteredOutageList, String requestedSite) {
         ObjectWriter ow = new ObjectMapper().writer().withDefaultPrettyPrinter();
         try {
             String json = ow.writeValueAsString(filteredOutageList);
-            return new ResponseEntity<>("The following outages have been posted:\n\n" + json, HttpStatus.OK);
+            return krakenService.postSiteOutages(json, requestedSite);
         } catch (JsonProcessingException e) {
             return new ResponseEntity<>("Could not map to Json.", HttpStatus.INTERNAL_SERVER_ERROR);
         }
