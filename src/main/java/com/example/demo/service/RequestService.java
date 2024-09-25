@@ -34,6 +34,7 @@ public class RequestService {
 
         for (Device device : siteInfo.getDevices()) {
             for (Outage outage : outages) {
+
                 Instant outageBegin = Instant.parse(outage.getBegin());
 
                 if (device.getId().equals(outage.getId())
