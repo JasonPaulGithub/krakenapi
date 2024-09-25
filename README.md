@@ -8,7 +8,7 @@ i.e.
 http://localhost:8080/request/norwich-pear-tree
 
 
-Resulting json:
+Resulting json payload sent to site-outages/norwich-pear-tree:
 ```
 [
   {
