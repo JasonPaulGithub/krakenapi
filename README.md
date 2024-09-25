@@ -10,7 +10,6 @@ http://localhost:8080/request/norwich-pear-tree
 
 Resulting json:
 ```
-
 [
   {
     "id": "111183e7-fb90-436b-9951-63392b36bdd2",
